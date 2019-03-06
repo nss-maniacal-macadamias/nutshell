@@ -4,7 +4,6 @@ class ApplicationViews extends Component {
   state = {}
   componentDidMount() {}
   render() {
-    console.log(this.props.activeUser)
     return <React.Fragment />
   }
 }
