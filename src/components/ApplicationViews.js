@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 import TaskManager from "../modules/resourceManagers/TaskManager"
+import TaskList from './task/TaskList'
 import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
@@ -13,7 +14,7 @@ class ApplicationViews extends Component {
     articles: [],
     friendships: []
   }
-
+  isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
 
   componentDidMount() {
     const newState = {}
@@ -37,6 +38,11 @@ class ApplicationViews extends Component {
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
+      <Route exact path="/tasks" render={(props) => {
+
+        return <TaskList {...props} tasks={this.state.tasks} />
+
+      }} />
     </React.Fragment>
   }
 }
