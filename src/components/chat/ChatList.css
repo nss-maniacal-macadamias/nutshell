@@ -41,6 +41,8 @@
 
 .MessageCardHeader {
     /* border: 1px solid red; */
+    margin-left: 15px;
+    margin-right: 5px;
     display: flex;
     justify-content: space-between
 }
