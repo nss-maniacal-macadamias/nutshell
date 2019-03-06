@@ -4,7 +4,11 @@ class ApplicationViews extends Component {
   state = {}
   componentDidMount() {}
   render() {
-    return <React.Fragment />
+    return <React.Fragment>
+      <Route path="/events" render ={() => {
+        <EventList />
+      }} />
+    </React.Fragment>
   }
 }
 

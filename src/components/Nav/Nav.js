@@ -15,6 +15,18 @@ class Nav extends Component {
             <Link className="nav-link" to="/">
               Nutshell
             </Link>
+            <Link className="nav-link" to="/tasks">
+              Tasks
+            </Link>
+            <Link className="nav-link" to="/events">
+              Events
+            </Link>
+            <Link className="nav-link" to="/chats">
+              Chats
+            </Link>
+            <Link className="nav-link" to="/articles">
+              Articles
+            </Link>
           </li>
         </ul>
         <a className="nav-link">Aloha 🌺 {this.props.activeUser.username}</a>
