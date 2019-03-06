@@ -27,6 +27,15 @@ class TaskList extends Component {
                                 <a href="#"
                                     onClick={() => this.props.deleteTask(task.id)}
                                     className="card-link">Delete</a>
+                                <button
+                                    type="button"
+                                    className="btn btn-success"
+                                    onClick={() => {
+                                        this.props.history.push(`/tasks/${task.id}/edit`);
+                                    }}
+                                >
+                                    Edit
+                                </button>
                             </div>
 
                         )

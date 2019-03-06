@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom"
 import TaskManager from "../modules/resourceManagers/TaskManager"
 import TaskList from './task/TaskList'
 import TaskForm from './task/TaskForm';
+import TaskEditForm from './task/TaskEditForm';
 import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
@@ -36,8 +37,17 @@ class ApplicationViews extends Component {
   }
 
   addTask = task => {
-   return TaskManager.POST(task)
+    return TaskManager.POST(task)
       .then(() => TaskManager.GETALL())
+      .then(tasks =>
+        this.setState({
+          tasks: tasks
+        })
+      );
+  }
+
+  editTask = task => {
+    return TaskManager.PUT(task)
       .then(tasks =>
         this.setState({
           tasks: tasks
@@ -47,13 +57,13 @@ class ApplicationViews extends Component {
 
   deleteTask = id => {
     return TaskManager.DELETE(id)
-       .then(() => TaskManager.GETALL())
-       .then(tasks =>
-         this.setState({
-           tasks: tasks
-         })
-       );
-   }
+      .then(() => TaskManager.GETALL())
+      .then(tasks =>
+        this.setState({
+          tasks: tasks
+        })
+      );
+  }
   render() {
     return <React.Fragment>
       {/* <Route path="/events" render ={() => {
@@ -61,15 +71,24 @@ class ApplicationViews extends Component {
       }} /> */}
       <Route exact path="/tasks" render={(props) => {
 
-        return <TaskList {...props} tasks={this.state.tasks} deleteTask={this.deleteTask}/>
+        return <TaskList
+          {...props}
+          tasks={this.state.tasks}
+          deleteTask={this.deleteTask}
+           />
 
       }} />
       <Route exact path="/tasks/new" render={(props) => {
-        return <TaskForm 
-        {...props}
+        return <TaskForm
+          {...props}
           addTask={this.addTask}
-           />
+        />
       }} />
+      <Route
+        path="/tasks/:taskId(\d+)/edit" render={props => {
+          return <TaskEditForm {...props} editTask={this.editTask} />
+        }}
+      />
     </React.Fragment>
   }
 }
