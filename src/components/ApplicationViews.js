@@ -87,9 +87,7 @@ class ApplicationViews extends Component {
   }
   render() {
     return <React.Fragment>
-      {/* <Route path="/events" render ={() => {
-        <EventList />
-      }} /> */}
+
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
