@@ -16,22 +16,22 @@ class Nav extends Component {
               Nutshell
             </Link>
           </li>
-          <li>
+          <li className="nav-item">
             <Link className="nav-link" to="/tasks">
               Tasks
             </Link>
-            </li>
-          <li>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/events">
               Events
             </Link>
-            </li>
-          <li>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/chats">
               Chats
             </Link>
-            </li>
-          <li>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/articles">
               Articles
             </Link>
