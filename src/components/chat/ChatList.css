@@ -5,28 +5,60 @@
 }
 
 .ChatRoomHeader {
-    border: 1px dotted black;
+    /* border: 1px dotted black; */
     display: flex;
     width: 100%;
     justify-content: center;
 }
 
 .MessageCardHolder {
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
 .YourMessage {
     border: 1px solid blue;
+    border-radius: 5px;
+    background-color: lightblue;
     display: flex;
     flex-direction: column;
     width: 75%;
+    box-shadow: 3px 3px 0 0 gray
 }
 
 .OthersMessage {
     border: 1px solid green;
+    border-radius: 5px;
+    background-color: rgb(171, 236, 171);
     display: flex;
     flex-direction: column;
     width: 75%;
+    align-self: flex-end;
+    box-shadow: 3px 3px 0 0 gray
+}
+
+.MessageCardHeader {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between
+}
+
+.MessageSender {
+    /* border: 1px solid goldenrod; */
+    font-size: 1.2em;
+    font-weight: bolder;
+}
+
+.MessageSentOn {
+    /* border: 1px solid purple; */
+    font-size: .8em;
+    font-style: italic;
+}
+
+.MessageTextContent {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 5px;
 }

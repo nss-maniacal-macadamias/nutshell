@@ -17,7 +17,7 @@ class MessageCard extends Component {
                                 <div className="MessageSender">You</div>
                                 <div className="MessageSentOn"> posted on {messageDate} at {messageTime}</div>
                             </div>
-                            <div className="MessageText">{message.messageText}</div>
+                            <div className="MessageTextContent">{message.messageText}</div>
                         </div>
                         : <div className="OthersMessage">
                             <div className="MessageCardHeader">

@@ -86,13 +86,11 @@ class ApplicationViews extends Component {
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
-<<<<<<< HEAD
       <Route path="/chats" render={() => {
         return <ChatList
           messages={this.state.messages}
           users={this.state.users} />
       }} />
-=======
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
@@ -113,7 +111,6 @@ class ApplicationViews extends Component {
           return <TaskEditForm {...props} editTask={this.editTask} />
         }}
       />
->>>>>>> dc82787868124b95a615ad8f73e2005d4d944778
       <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
           // addAnimal={this.addAnimal}
