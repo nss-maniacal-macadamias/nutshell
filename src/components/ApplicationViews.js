@@ -7,6 +7,7 @@ import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
 import EventList from "./events/evenList";
 import NewsList from "./news/NewsList";
+import EventForm from "./events/eventForm";
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -15,6 +16,7 @@ class ApplicationViews extends Component {
     articles: [],
     friendships: []
   }
+
 
 
   componentDidMount() {
@@ -35,16 +37,23 @@ class ApplicationViews extends Component {
     })
   }
 
+  addNewEvent = (evtObj) =>
+     EventManager.POST(evtObj)
+    .then(() => EventManager.GETALL())
+    .then(events => this.setState({events : events}))
 
   render() {
     return <React.Fragment>
       <Route exact path="/events" render={(props) => {
         return <EventList events = {this.state.events}
-          friends = {this.state.friendships} />
-      }} />
+          friends = {this.state.friendships}
+          {...props}/>
+        }} />
       <Route exact path="/events/new" render={(props) => {
-        return <EventList events = {this.state.events}
-          friends = {this.state.friendships} />
+        return <EventForm events = {this.state.events}
+        addNewEvent = {this.addNewEvent}
+        friends = {this.state.friendships}
+        {...props} />
       }} />
       <Route path="/articles" render={(props) => {
                     return <NewsList {...props}
