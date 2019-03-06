@@ -8,6 +8,7 @@ import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
 import ChatList from "./chat/ChatList"
 import NewsList from "./news/NewsList";
 import UserManager from "../modules/resourceManagers/UserManager";
+import NewsEditForm from "./news/NewsEditForm"
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -17,6 +18,15 @@ class ApplicationViews extends Component {
     friendships: [],
     users: []
   }
+  updateArticle = (editedArticleObject) => {
+    return ArticleManager.PUT(editedArticleObject)
+    .then(() => ArticleManager.GETALL())
+    .then(articles => {
+      this.setState({
+        articles: articles
+      })
+    });
+  };
 
 
   componentDidMount() {
@@ -48,12 +58,20 @@ class ApplicationViews extends Component {
           messages={this.state.messages}
           users={this.state.users} />
       }} />
-      <Route path="/articles" render={(props) => {
+      <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
           // addAnimal={this.addAnimal}
           articles={this.state.articles} />
       }} />
+      <Route
+        exact path="/articles/:articleId(\d+)/edit" render={props => {
+          return <NewsEditForm {...props}
+            articles={this.state.articles}
+            updateArticle={this.updateArticle} />
+        }}
+      />
     </React.Fragment>
+
   }
 }
 
