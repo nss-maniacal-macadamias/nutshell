@@ -6,7 +6,7 @@ class ApplicationViews extends Component {
   render() {
     return <React.Fragment>
       <Route path="/events" render ={() => {
-        <EventList />
+        // <EventList />
       }} />
     </React.Fragment>
   }
