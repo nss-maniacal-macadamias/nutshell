@@ -1,7 +1,8 @@
 import React, { Component } from "react"
-import { Route } from "react-router-dom"
+import { Route, Redirect } from "react-router-dom"
 import TaskManager from "../modules/resourceManagers/TaskManager"
 import TaskList from './task/TaskList'
+import TaskForm from './task/TaskForm';
 import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
@@ -33,6 +34,26 @@ class ApplicationViews extends Component {
       this.setState(newState)
     })
   }
+
+  addTask = task => {
+   return TaskManager.POST(task)
+      .then(() => TaskManager.GETALL())
+      .then(tasks =>
+        this.setState({
+          tasks: tasks
+        })
+      );
+  }
+
+  deleteTask = id => {
+    return TaskManager.DELETE(id)
+       .then(() => TaskManager.GETALL())
+       .then(tasks =>
+         this.setState({
+           tasks: tasks
+         })
+       );
+   }
   render() {
     return <React.Fragment>
       {/* <Route path="/events" render ={() => {
@@ -40,8 +61,14 @@ class ApplicationViews extends Component {
       }} /> */}
       <Route exact path="/tasks" render={(props) => {
 
-        return <TaskList {...props} tasks={this.state.tasks} />
+        return <TaskList {...props} tasks={this.state.tasks} deleteTask={this.deleteTask}/>
 
+      }} />
+      <Route exact path="/tasks/new" render={(props) => {
+        return <TaskForm 
+        {...props}
+          addTask={this.addTask}
+           />
       }} />
     </React.Fragment>
   }
