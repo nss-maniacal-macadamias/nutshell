@@ -15,15 +15,23 @@ class Nav extends Component {
             <Link className="nav-link" to="/">
               Nutshell
             </Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/tasks">
               Tasks
             </Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/events">
               Events
             </Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/chats">
               Chats
             </Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/articles">
               Articles
             </Link>
@@ -36,7 +44,7 @@ class Nav extends Component {
           onClick={this.logout}>
           Logout
         </button>
-      </nav>
+      </nav >
     )
   }
 }
