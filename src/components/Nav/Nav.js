@@ -15,15 +15,23 @@ class Nav extends Component {
             <Link className="nav-link" to="/">
               Nutshell
             </Link>
+          </li>
+          <li>
             <Link className="nav-link" to="/tasks">
               Tasks
             </Link>
+            </li>
+          <li>
             <Link className="nav-link" to="/events">
               Events
             </Link>
+            </li>
+          <li>
             <Link className="nav-link" to="/chats">
               Chats
             </Link>
+            </li>
+          <li>
             <Link className="nav-link" to="/articles">
               Articles
             </Link>
