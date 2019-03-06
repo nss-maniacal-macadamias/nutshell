@@ -9,17 +9,25 @@ export default class Event extends Component {
                         <div>{this.props.event.eventName}</div>
                     </h5>
                     <div >
-
                         {this.props.event.eventLocation}
+                    </div>
+                    <div>
                         {this.props.event.eventDate}
                     </div>
-                    <button
-                        type="button"
-                        className="btn btn-success"
-                        onClick={() => {
-                            this.props.history.push(`/animals/${this.props.animal.id}/edit`);
-                        }}
-                    > Edit </button>
+                    <div className="btn-container">
+                        <button
+                            type="button"
+                            className="btn btn-success"
+                            onClick={() => {
+                                this.props.history.push(`/animals/${this.props.animal.id}/edit`);
+                            }}
+                        > Edit </button>
+                        <button className="btn btn-outline-danger"
+                            onClick={() => { this.props.DeleteEvent(`${this.props.event.id}`) }}>
+                            Delete
+                        </button>
+
+                    </div>
                 </div>
             </div>
         )

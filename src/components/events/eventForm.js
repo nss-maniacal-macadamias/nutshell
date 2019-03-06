@@ -25,7 +25,7 @@ export default class EventForm extends Component {
     else
     {
       const event = {
-        eventname: this.state.eventName,
+        eventName: this.state.eventName,
         eventLocation: this.state.eventLocation,
         eventDate: this.state.eventDate,
         userId: parseInt(sessionStorage.getItem("credentials"))

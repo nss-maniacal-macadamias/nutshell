@@ -19,12 +19,12 @@ class ApplicationViews extends Component {
   }
   updateArticle = (editedArticleObject) => {
     return ArticleManager.PUT(editedArticleObject)
-    .then(() => ArticleManager.GETALL())
-    .then(articles => {
-      this.setState({
-        articles: articles
-      })
-    });
+      .then(() => ArticleManager.GETALL())
+      .then(articles => {
+        this.setState({
+          articles: articles
+        })
+      });
   };
 
 
@@ -48,28 +48,34 @@ class ApplicationViews extends Component {
   }
 
   addNewEvent = (evtObj) =>
-     EventManager.POST(evtObj)
-    .then(() => EventManager.GETALL())
-    .then(events => this.setState({events : events}))
+    EventManager.POST(evtObj)
+      .then(() => EventManager.GETALL())
+      .then(events => this.setState({ events: events }))
+
+  DeleteEvent = (id) =>
+    EventManager.DELETE(id)
+      .then(() => EventManager.GETALL())
+      .then(events => this.setState({ events: events }))
 
   render() {
     return <React.Fragment>
       <Route exact path="/events" render={(props) => {
-        return <EventList events = {this.state.events}
-          friends = {this.state.friendships}
-          {...props}/>
-        }} />
+        return <EventList events={this.state.events}
+          friends={this.state.friendships}
+          DeleteEvent={this.DeleteEvent}
+          {...props} />
+      }} />
       <Route exact path="/events/new" render={(props) => {
-        return <EventForm events = {this.state.events}
-        addNewEvent = {this.addNewEvent}
-        friends = {this.state.friendships}
-        {...props} />
+        return <EventForm events={this.state.events}
+          addNewEvent={this.addNewEvent}
+          friends={this.state.friendships}
+          {...props} />
       }} />
       <Route path="/articles" render={(props) => {
-                    return <NewsList {...props}
-                        // addAnimal={this.addAnimal}
-                        articles={this.state.articles} />
-                }} />
+        return <NewsList {...props}
+          // addAnimal={this.addAnimal}
+          articles={this.state.articles} />
+      }} />
       <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
           // addAnimal={this.addAnimal}
