@@ -5,7 +5,11 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
+<<<<<<< HEAD
 import EventList from "./events/evenList";
+=======
+import NewsList from "./news/NewsList";
+>>>>>>> master
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -41,6 +45,11 @@ class ApplicationViews extends Component {
         return <EventList events = {this.state.events}
           friends = {this.state.friendships} />
       }} />
+      <Route path="/articles" render={(props) => {
+                    return <NewsList {...props}
+                        // addAnimal={this.addAnimal}
+                        articles={this.state.articles} />
+                }} />
     </React.Fragment>
   }
 }
