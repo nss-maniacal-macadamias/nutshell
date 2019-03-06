@@ -6,22 +6,28 @@ class MessageCard extends Component {
         let user = this.props.users.filter(user => parseInt(user.id) === parseInt(message.userId))
         let username = user[0].username
         let userId = user[0].id
-        let headerDate = message.messageDateTime.split(" ").filter((dateEl, idx) => idx <= 2 || (idx === 4))
-        headerDate.splice(3,0,"at")
-        headerDate.join("!")
-        console.log(headerDate)
+        let messageDate = message.messageDateTime.split(" ").filter((dateEl, idx) => idx <= 2).join(" ")
+        let messageTime = message.messageDateTime.split(" ").filter((dateEl, idx) => idx === 4)
         return (
-            <React.Fragment>
+            <div className="MessageCardHolder">
                 {
-                    (username === parseInt(sessionStorage.getItem("credentials")))
+                    (userId === parseInt(sessionStorage.getItem("credentials")))
                         ? <div className="YourMessage">
-                            <div className="MessageCardHeader"></div>
+                            <div className="MessageCardHeader">
+                                <div className="MessageSender">You</div>
+                                <div className="MessageSentOn"> posted on {messageDate} at {messageTime}</div>
+                            </div>
+                            <div className="MessageText">{message.messageText}</div>
                         </div>
                         : <div className="OthersMessage">
-
+                            <div className="MessageCardHeader">
+                                <div className="MessageSender">{username}</div>
+                                <div className="MessageSentOn"> posted on {messageDate} at {messageTime}</div>
+                            </div>
+                            <div className="MessageTextContent">{message.messageText}</div>
                         </div>
                 }
-            </React.Fragment>
+            </div>
         )
     }
 }

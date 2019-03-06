@@ -1,0 +1,32 @@
+.ChatRoom {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.ChatRoomHeader {
+    border: 1px dotted black;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.MessageCardHolder {
+    border: 1px solid purple;
+    display: flex;
+    width: 100%;
+}
+
+.YourMessage {
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.OthersMessage {
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}

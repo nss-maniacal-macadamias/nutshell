@@ -1,6 +1,9 @@
 import React, { Component } from "react"
-import { Route } from "react-router-dom"
+import { Route, Redirect } from "react-router-dom"
 import TaskManager from "../modules/resourceManagers/TaskManager"
+import TaskList from './task/TaskList'
+import TaskForm from './task/TaskForm';
+import TaskEditForm from './task/TaskEditForm';
 import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
@@ -18,14 +21,15 @@ class ApplicationViews extends Component {
     friendships: [],
     users: []
   }
+  isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
   updateArticle = (editedArticleObject) => {
     return ArticleManager.PUT(editedArticleObject)
-    .then(() => ArticleManager.GETALL())
-    .then(articles => {
-      this.setState({
-        articles: articles
-      })
-    });
+      .then(() => ArticleManager.GETALL())
+      .then(articles => {
+        this.setState({
+          articles: articles
+        })
+      });
   };
 
 
@@ -48,16 +52,68 @@ class ApplicationViews extends Component {
       this.setState(newState)
     })
   }
+
+  addTask = task => {
+    return TaskManager.POST(task)
+      .then(() => TaskManager.GETALL())
+      .then(tasks =>
+        this.setState({
+          tasks: tasks
+        })
+      );
+  }
+
+  editTask = task => {
+    return TaskManager.PUT(task)
+      .then(tasks =>
+        this.setState({
+          tasks: tasks
+        })
+      );
+  }
+
+  deleteTask = id => {
+    return TaskManager.DELETE(id)
+      .then(() => TaskManager.GETALL())
+      .then(tasks =>
+        this.setState({
+          tasks: tasks
+        })
+      );
+  }
   render() {
     return <React.Fragment>
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
+<<<<<<< HEAD
       <Route path="/chats" render={() => {
         return <ChatList
           messages={this.state.messages}
           users={this.state.users} />
       }} />
+=======
+      <Route exact path="/tasks" render={(props) => {
+
+        return <TaskList
+          {...props}
+          tasks={this.state.tasks}
+          deleteTask={this.deleteTask}
+        />
+
+      }} />
+      <Route exact path="/tasks/new" render={(props) => {
+        return <TaskForm
+          {...props}
+          addTask={this.addTask}
+        />
+      }} />
+      <Route
+        path="/tasks/:taskId(\d+)/edit" render={props => {
+          return <TaskEditForm {...props} editTask={this.editTask} />
+        }}
+      />
+>>>>>>> dc82787868124b95a615ad8f73e2005d4d944778
       <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
           // addAnimal={this.addAnimal}
