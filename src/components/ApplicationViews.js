@@ -7,13 +7,15 @@ import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
 import ChatList from "./chat/ChatList"
 import NewsList from "./news/NewsList";
+import UserManager from "../modules/resourceManagers/UserManager";
 class ApplicationViews extends Component {
   state = {
     tasks: [],
     messages: [],
     events: [],
     articles: [],
-    friendships: []
+    friendships: [],
+    users: []
   }
 
 
@@ -30,6 +32,8 @@ class ApplicationViews extends Component {
       newState.messages = messages
     })).then(() => FriendShipManager.GETALL().then(friendships => {
       newState.friendships = friendships
+    })).then(() => UserManager.getAll().then(users => {
+      newState.users = users
     })).then(() => {
       this.setState(newState)
     })
@@ -39,9 +43,10 @@ class ApplicationViews extends Component {
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
-      <Route path="/chat" render={() => {
+      <Route path="/chats" render={() => {
         return <ChatList
-          messages={this.state.messages} />
+          messages={this.state.messages}
+          users={this.state.users} />
       }} />
       <Route path="/articles" render={(props) => {
         return <NewsList {...props}
