@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TaskManager from "../../modules/resourceManagers/TaskManager";
 
 
 export default class TaskEditForm extends Component {
@@ -26,7 +27,7 @@ export default class TaskEditForm extends Component {
     editTask = evt => {
         evt.preventDefault();
         const task = {
-            id: this.props.match.params.task.id,
+            id: this.props.match.params.taskId,
             taskName: this.state.taskName,
             completionDate: this.state.completionDate,
             // Make sure the employeeId is saved to the database as a number since it is a foreign key.
@@ -43,6 +44,18 @@ export default class TaskEditForm extends Component {
 
     };
 
+    componentDidMount() {
+        TaskManager.GET(this.props.match.params.taskId)
+        .then(task => {
+          this.setState({
+            taskName: task.taskName,
+            completionDate: task.completionDate,
+            userId: Number(sessionStorage.getItem("credentials")),
+            completionStatus: task.completionStatus
+          });
+        });
+      }
+
     render() {
         return (
             <React.Fragment>
@@ -55,7 +68,7 @@ export default class TaskEditForm extends Component {
                             className="form-control"
                             onChange={this.handleFieldChange}
                             id="taskName"
-                            placeholder="Task name"
+                            value={this.state.taskName}
                         />
                     </div>
                     <div className="form-group">
@@ -66,7 +79,7 @@ export default class TaskEditForm extends Component {
                             className="form-control"
                             onChange={this.handleFieldChange}
                             id="completionDate"
-                            placeholder="completionDate"
+                            value={this.state.completionDate}
                         />
                     </div>
                     {/* <div className="form-group">

@@ -60,6 +60,7 @@ class ApplicationViews extends Component {
 
   editTask = task => {
     return TaskManager.PUT(task)
+    .then(TaskManager.GETALL())
       .then(tasks =>
         this.setState({
           tasks: tasks
@@ -98,7 +99,7 @@ class ApplicationViews extends Component {
       }} />
       <Route
         path="/tasks/:taskId(\d+)/edit" render={props => {
-          return <TaskEditForm {...props} editTask={this.editTask} />
+          return <TaskEditForm {...props} editTask={this.editTask} tasks={this.state.tasks} />
         }}
       />
       <Route exact path="/articles" render={(props) => {
