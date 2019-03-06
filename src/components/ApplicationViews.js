@@ -8,7 +8,9 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
+import ChatList from "./chat/ChatList"
 import NewsList from "./news/NewsList";
+import UserManager from "../modules/resourceManagers/UserManager";
 import NewsEditForm from "./news/NewsEditForm"
 class ApplicationViews extends Component {
   state = {
@@ -16,7 +18,8 @@ class ApplicationViews extends Component {
     messages: [],
     events: [],
     articles: [],
-    friendships: []
+    friendships: [],
+    users: []
   }
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
   updateArticle = (editedArticleObject) => {
@@ -43,6 +46,8 @@ class ApplicationViews extends Component {
       newState.messages = messages
     })).then(() => FriendShipManager.GETALL().then(friendships => {
       newState.friendships = friendships
+    })).then(() => UserManager.getAll().then(users => {
+      newState.users = users
     })).then(() => {
       this.setState(newState)
     })
@@ -82,6 +87,11 @@ class ApplicationViews extends Component {
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
+      <Route path="/chats" render={() => {
+        return <ChatList
+          messages={this.state.messages}
+          users={this.state.users} />
+      }} />
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
