@@ -8,6 +8,7 @@ import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
 import EventList from "./events/evenList";
 import NewsList from "./news/NewsList";
 import EventForm from "./events/eventForm";
+import NewsEditForm from "./news/NewsEditForm"
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -16,6 +17,15 @@ class ApplicationViews extends Component {
     articles: [],
     friendships: []
   }
+  updateArticle = (editedArticleObject) => {
+    return ArticleManager.PUT(editedArticleObject)
+    .then(() => ArticleManager.GETALL())
+    .then(articles => {
+      this.setState({
+        articles: articles
+      })
+    });
+  };
 
 
 
@@ -60,7 +70,20 @@ class ApplicationViews extends Component {
                         // addAnimal={this.addAnimal}
                         articles={this.state.articles} />
                 }} />
+      <Route exact path="/articles" render={(props) => {
+        return <NewsList {...props}
+          // addAnimal={this.addAnimal}
+          articles={this.state.articles} />
+      }} />
+      <Route
+        exact path="/articles/:articleId(\d+)/edit" render={props => {
+          return <NewsEditForm {...props}
+            articles={this.state.articles}
+            updateArticle={this.updateArticle} />
+        }}
+      />
     </React.Fragment>
+
   }
 }
 
