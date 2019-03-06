@@ -5,8 +5,8 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
-
 import ChatList from "./chat/ChatList"
+import NewsList from "./news/NewsList";
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -41,7 +41,12 @@ class ApplicationViews extends Component {
       }} /> */}
       <Route path="/chat" render={() => {
         return <ChatList
-        messages={this.state.messages}/>
+          messages={this.state.messages} />
+      }} />
+      <Route path="/articles" render={(props) => {
+        return <NewsList {...props}
+          // addAnimal={this.addAnimal}
+          articles={this.state.articles} />
       }} />
     </React.Fragment>
   }
