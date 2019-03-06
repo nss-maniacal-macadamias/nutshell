@@ -8,6 +8,8 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
+import NewsList from "./news/NewsList";
+import NewsEditForm from "./news/NewsEditForm"
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -17,6 +19,16 @@ class ApplicationViews extends Component {
     friendships: []
   }
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
+  updateArticle = (editedArticleObject) => {
+    return ArticleManager.PUT(editedArticleObject)
+      .then(() => ArticleManager.GETALL())
+      .then(articles => {
+        this.setState({
+          articles: articles
+        })
+      });
+  };
+
 
   componentDidMount() {
     const newState = {}
@@ -75,7 +87,7 @@ class ApplicationViews extends Component {
           {...props}
           tasks={this.state.tasks}
           deleteTask={this.deleteTask}
-           />
+        />
 
       }} />
       <Route exact path="/tasks/new" render={(props) => {
@@ -89,7 +101,20 @@ class ApplicationViews extends Component {
           return <TaskEditForm {...props} editTask={this.editTask} />
         }}
       />
+      <Route exact path="/articles" render={(props) => {
+        return <NewsList {...props}
+          // addAnimal={this.addAnimal}
+          articles={this.state.articles} />
+      }} />
+      <Route
+        exact path="/articles/:articleId(\d+)/edit" render={props => {
+          return <NewsEditForm {...props}
+            articles={this.state.articles}
+            updateArticle={this.updateArticle} />
+        }}
+      />
     </React.Fragment>
+
   }
 }
 
