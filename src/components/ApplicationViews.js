@@ -8,9 +8,7 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
-import ChatList from "./chat/ChatList"
 import NewsList from "./news/NewsList";
-import UserManager from "../modules/resourceManagers/UserManager";
 import NewsEditForm from "./news/NewsEditForm"
 import NewsForm from "./news/NewsForm"
 class ApplicationViews extends Component {
@@ -19,8 +17,7 @@ class ApplicationViews extends Component {
     messages: [],
     events: [],
     articles: [],
-    friendships: [],
-    users: []
+    friendships: []
   }
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
 
@@ -63,8 +60,6 @@ class ApplicationViews extends Component {
       newState.messages = messages
     })).then(() => FriendShipManager.GETALL().then(friendships => {
       newState.friendships = friendships
-    })).then(() => UserManager.getAll().then(users => {
-      newState.users = users
     })).then(() => {
       this.setState(newState)
     })
@@ -82,11 +77,13 @@ class ApplicationViews extends Component {
 
   editTask = task => {
     return TaskManager.PUT(task)
-      .then(tasks =>
+    .then(()=>TaskManager.GETALL())
+      .then(tasks =>{
+        console.log(tasks)
         this.setState({
           tasks: tasks
         })
-      );
+      });
   }
 
   deleteTask = id => {
@@ -104,11 +101,6 @@ class ApplicationViews extends Component {
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
-      <Route path="/chats" render={() => {
-        return <ChatList
-          messages={this.state.messages}
-          users={this.state.users} />
-      }} />
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
@@ -126,7 +118,7 @@ class ApplicationViews extends Component {
       }} />
       <Route
         path="/tasks/:taskId(\d+)/edit" render={props => {
-          return <TaskEditForm {...props} editTask={this.editTask} />
+          return <TaskEditForm {...props} editTask={this.editTask} tasks={this.state.tasks} />
         }}
       />
       <Route exact path="/articles" render={(props) => {
