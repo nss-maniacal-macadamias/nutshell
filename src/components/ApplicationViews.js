@@ -10,6 +10,7 @@ import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
 import NewsList from "./news/NewsList";
 import NewsEditForm from "./news/NewsEditForm"
+import NewsForm from "./news/NewsForm"
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -19,6 +20,7 @@ class ApplicationViews extends Component {
     friendships: []
   }
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
+
   updateArticle = (editedArticleObject) => {
     return ArticleManager.PUT(editedArticleObject)
       .then(() => ArticleManager.GETALL())
@@ -28,6 +30,21 @@ class ApplicationViews extends Component {
         })
       });
   };
+  addArticle = article =>
+    ArticleManager.POST(article)
+      .then(() => ArticleManager.GETALL())
+      .then(articles =>
+        this.setState({
+          articles: articles
+        })
+      );
+
+    deleteArticle = (id) => {
+      return ArticleManager.DELETE(id)
+          .then(() => ArticleManager.GETALL())
+          .then(articles => this.setState({ articles: articles }))
+
+  }
 
 
   componentDidMount() {
@@ -80,6 +97,7 @@ class ApplicationViews extends Component {
   }
   render() {
     return <React.Fragment>
+
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
@@ -105,8 +123,9 @@ class ApplicationViews extends Component {
       />
       <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
-          // addAnimal={this.addAnimal}
-          articles={this.state.articles} />
+          friendships = {this.state.friendships}
+          articles={this.state.articles}
+          deleteArticle={this.deleteArticle} />
       }} />
       <Route
         exact path="/articles/:articleId(\d+)/edit" render={props => {
@@ -115,6 +134,12 @@ class ApplicationViews extends Component {
             updateArticle={this.updateArticle} />
         }}
       />
+      <Route path="/articles/new" render={(props) => {
+        return <NewsForm {...props}
+          addArticle={this.addArticle}
+          />
+      }} />
+
     </React.Fragment>
 
   }
