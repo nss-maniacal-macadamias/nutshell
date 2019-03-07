@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route } from "react-router-dom"
 import TaskManager from "../modules/resourceManagers/TaskManager"
 import TaskList from './task/TaskList'
 import TaskForm from './task/TaskForm';
@@ -155,8 +155,8 @@ class ApplicationViews extends Component {
                     updateEvent={this.updateEvent} />
                 }} />
 
-      <Route exact path="/tasks" render={(props) => {
 
+      <Route exact path="/tasks" render={(props) => {
         return <TaskList
           {...props}
           tasks={this.state.tasks}

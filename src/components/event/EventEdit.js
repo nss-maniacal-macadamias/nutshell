@@ -24,7 +24,9 @@ export default class EventEditForm extends Component {
 
         if (this.state.eventName === "") {
             window.alert("Please Enter Event Name");
-          } else {
+          }
+          else
+          {
             const event = {
                 eventName: this.state.eventName,
                 eventLocation: this.state.eventLocation,
