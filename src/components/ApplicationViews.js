@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route } from "react-router-dom"
 import TaskManager from "../modules/resourceManagers/TaskManager"
 import TaskList from './task/TaskList'
 import TaskForm from './task/TaskForm';

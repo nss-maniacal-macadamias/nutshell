@@ -4,21 +4,27 @@ import "./events.css"
 export default class Event extends Component {
 
     render() {
-        const addclass = this.props.event.userId === parseInt(sessionStorage.getItem("credentials"))
-            ? "card" : "card color_background"
+        let addclass = this.props.event.userId === parseInt(sessionStorage.getItem("credentials"))
+            ? "card my_card" : "card friends_card "
+        addclass = new Date(this.props.event.eventDate) >= new Date() && this.props.index === 0 ? "card first_card": addclass
+        console.log(this.props.index, "o", addclass)
         return (
             <div key={this.props.event.id} className={addclass} >
-                <div className="card-body">
+                <div className="card-header">
                     <h5 className="card-title">
-                        <div>{this.props.event.eventName}</div>
+                        {this.props.event.eventDate}
                     </h5>
+                </div>
+                <div className="card-body">
                     <div >
-                        {this.props.event.eventLocation}
+                        {this.props.event.eventName}
                     </div>
                     <div>
-                        {this.props.event.eventDate}
+                        <strong>Location : </strong>{this.props.event.eventLocation}
                     </div>
-                    {(this.props.event.userId === parseInt(sessionStorage.getItem("credentials"))) ?
+                </div>
+                {(this.props.event.userId === parseInt(sessionStorage.getItem("credentials"))) ?
+                    <div className="card-footer">
                         <div className="btn-container">
                             <button
                                 type="button"
@@ -32,8 +38,8 @@ export default class Event extends Component {
                                 Delete
                         </button>
                         </div>
-                        : " "}
-                </div>
+                    </div>
+                    : " "}
             </div>
         )
     }

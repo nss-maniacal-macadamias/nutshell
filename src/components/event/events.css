@@ -4,7 +4,7 @@
     justify-content: space-around;
     margin-top: 5px;
     text-justify: auto;
-    height : 400px;
+    height : 300px;
 }
 
 .btn-container {
@@ -18,6 +18,22 @@
     margin-bottom: 10px;
 }
 
-.color_background {
+.friends_card {
     background-color : lightyellow;
+}
+
+.my_card{
+    background-color :lightblue;
+}
+
+.first_card {
+    background-color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.txt {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
 }
