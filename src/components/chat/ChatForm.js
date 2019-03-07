@@ -37,13 +37,13 @@ export default class ChatForm extends Component {
     return (
       <React.Fragment>
         <form className="NewMessageForm">
-          <div className="form-group">
-            <input
-              type="text"
+          <div className="MessageInput">
+            <textarea
+              rows="1"
+              cols="50"
               required
-              className="form-control"
               onChange={this.handleFieldChange}
-              id="messageText"
+              id="MessageText"
               placeholder="Enter Message Here..." />
           </div>
           <button

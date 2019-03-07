@@ -8,7 +8,7 @@ class ChatList extends Component {
         return (
             <section className="ChatRoom">
                 <div className="ChatRoomHeader">
-                    <h3 key={`candyList`}>Nutshell Chat Room:</h3>
+                    <h3 key={`ChatList`}>Nutshell Chat Room:</h3>
                 </div>
                 <div className="PostedMessages">
                     {
