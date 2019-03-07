@@ -13,7 +13,6 @@ class ChatList extends Component {
     }
 
     handleFieldChange = evt => {
-        console.log(evt.target.value)
         const stateToChange = {};
         stateToChange.messageText = evt.target.value;
         this.setState(stateToChange);
@@ -23,7 +22,6 @@ class ChatList extends Component {
         if (evt.target.textContent === "Edit") {
             document.querySelector(".hidden").className = "visible"
             let id = parseInt(evt.target.id.split("--")[1])
-            console.log(id)
             return MessageManager.GET(id)
                 .then((mObj) => {
                     this.setState({
