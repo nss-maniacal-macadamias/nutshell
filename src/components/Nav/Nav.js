@@ -44,7 +44,7 @@ class Nav extends Component {
           onClick={this.logout}>
           Logout
         </button>
-      </nav>
+      </nav >
     )
   }
 }
