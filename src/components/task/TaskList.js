@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 class TaskList extends Component {
 
     render() {
-
+console.log(this.props.tasks)
         return (
             <React.Fragment>
                 <button type="button"

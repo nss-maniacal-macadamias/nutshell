@@ -15,17 +15,20 @@ import ChatList from "./chat/ChatList"
 import UserManager from "../modules/resourceManagers/UserManager";
 import NewsEditForm from "./news/NewsEditForm"
 import EventEditForm from "./event/EventEdit";
+import NewsList from "./news/NewsList";
+import NewsEditForm from "./news/NewsEditForm"
+import NewsForm from "./news/NewsForm"
 class ApplicationViews extends Component {
   state = {
     tasks: [],
     messages: [],
     events: [],
     articles: [],
-    friendships: [],
-    users: []
+    friendships: []
   }
 
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
+
   updateArticle = (editedArticleObject) => {
     return ArticleManager.PUT(editedArticleObject)
       .then(() => ArticleManager.GETALL())
@@ -35,6 +38,21 @@ class ApplicationViews extends Component {
         })
       });
   };
+  addArticle = article =>
+    ArticleManager.POST(article)
+      .then(() => ArticleManager.GETALL())
+      .then(articles =>
+        this.setState({
+          articles: articles
+        })
+      );
+
+    deleteArticle = (id) => {
+      return ArticleManager.DELETE(id)
+          .then(() => ArticleManager.GETALL())
+          .then(articles => this.setState({ articles: articles }))
+
+  }
 
 
 
@@ -51,8 +69,6 @@ class ApplicationViews extends Component {
       newState.messages = messages
     })).then(() => FriendShipManager.GETALL().then(friendships => {
       newState.friendships = friendships
-    })).then(() => UserManager.getAll().then(users => {
-      newState.users = users
     })).then(() => {
       this.setState(newState)
     })
@@ -91,11 +107,13 @@ class ApplicationViews extends Component {
 
   editTask = task => {
     return TaskManager.PUT(task)
-      .then(tasks =>
+    .then(()=>TaskManager.GETALL())
+      .then(tasks =>{
+        console.log(tasks)
         this.setState({
           tasks: tasks
         })
-      );
+      });
   }
 
   deleteTask = id => {
@@ -138,11 +156,6 @@ class ApplicationViews extends Component {
       {/* <Route path="/events" render ={() => {
         <EventList />
       }} /> */}
-      <Route path="/chats" render={() => {
-        return <ChatList
-          messages={this.state.messages}
-          users={this.state.users} />
-      }} />
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
@@ -160,13 +173,14 @@ class ApplicationViews extends Component {
       }} />
       <Route
         path="/tasks/:taskId(\d+)/edit" render={props => {
-          return <TaskEditForm {...props} editTask={this.editTask} />
+          return <TaskEditForm {...props} editTask={this.editTask} tasks={this.state.tasks} />
         }}
       />
       <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
-          // addAnimal={this.addAnimal}
-          articles={this.state.articles} />
+          friendships = {this.state.friendships}
+          articles={this.state.articles}
+          deleteArticle={this.deleteArticle} />
       }} />
       <Route
         exact path="/articles/:articleId(\d+)/edit" render={props => {
@@ -175,6 +189,12 @@ class ApplicationViews extends Component {
             updateArticle={this.updateArticle} />
         }}
       />
+      <Route path="/articles/new" render={(props) => {
+        return <NewsForm {...props}
+          addArticle={this.addArticle}
+          />
+      }} />
+
     </React.Fragment>
   }
 }
