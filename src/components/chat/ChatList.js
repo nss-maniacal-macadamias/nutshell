@@ -20,7 +20,8 @@ class ChatList extends Component {
                     }
                 </div>
                 {
-                    <ChatForm key={"ChatForm"} />
+                    <ChatForm key={"ChatForm"}
+                        addMessage={this.props.addMessage} />
                 }
             </section>
         )
