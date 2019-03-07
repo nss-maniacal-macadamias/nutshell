@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AddFriendModal from './AddFriend';
 // import { Link } from "react-router-dom";
 // import "./Task.css"
 
@@ -25,11 +26,11 @@ class FriendsList extends Component {
             <React.Fragment>
                 <section className="friends container" >
                     <h1>Your Friends List</h1>
-                    <button type="button"
-                        onClick={() => this.props.history.push("/friends/new")}
-                        className="btn btn-success">
-                        Find Friend
-                    </button>
+
+                    <AddFriendModal
+                    {...this.props}
+                    />
+
                     
                     {friends.map(friend =>
 

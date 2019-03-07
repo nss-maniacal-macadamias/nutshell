@@ -18,8 +18,9 @@ class TaskList extends Component {
                         className="btn btn-success">
                         Add Task
                     </button>
-                    {this.props.tasks.filter(task => task.userId === Number(sessionStorage.getItem("credentials")))
+                    {this.props.tasks.filter(task => task.userId === Number(sessionStorage.getItem("credentials")) && task.completionStatus !== true)
                         .map(task =>
+                        
                             <div key={task.id} className="task container">
                                 {task.taskName} <br />
                                 {task.completionDate} <br />
