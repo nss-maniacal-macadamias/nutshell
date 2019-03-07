@@ -8,6 +8,7 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
+import FriendsList from "./friends/FriendsList"
 import EventList from "./event/EventList";
 import NewsList from "./news/NewsList";
 import EventForm from "./event/eventForm";
@@ -22,7 +23,8 @@ class ApplicationViews extends Component {
     messages: [],
     events: [],
     articles: [],
-    friendships: []
+    friendships: [],
+    users: []
   }
 
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
@@ -45,10 +47,10 @@ class ApplicationViews extends Component {
         })
       );
 
-    deleteArticle = (id) => {
-      return ArticleManager.DELETE(id)
-          .then(() => ArticleManager.GETALL())
-          .then(articles => this.setState({ articles: articles }))
+  deleteArticle = (id) => {
+    return ArticleManager.DELETE(id)
+      .then(() => ArticleManager.GETALL())
+      .then(articles => this.setState({ articles: articles }))
 
   }
 
@@ -67,7 +69,10 @@ class ApplicationViews extends Component {
       newState.messages = messages
     })).then(() => FriendShipManager.GETALL().then(friendships => {
       newState.friendships = friendships
-    })).then(() => {
+    })).then(() => UserManager.getAll().then(users => {
+      newState.users = users
+    }))
+    .then(() => {
       this.setState(newState)
     })
   }
@@ -85,13 +90,13 @@ class ApplicationViews extends Component {
   updateEvent = (eventObj) => {
     console.log(eventObj)
     return EventManager.PUT(eventObj)
-            .then(() => EventManager.GETALL())
-            .then(events => {
-                this.setState({
-                    events: events
-                })
-            });
-    };
+      .then(() => EventManager.GETALL())
+      .then(events => {
+        this.setState({
+          events: events
+        })
+      });
+  };
 
   addTask = task => {
     return TaskManager.POST(task)
@@ -105,8 +110,8 @@ class ApplicationViews extends Component {
 
   editTask = task => {
     return TaskManager.PUT(task)
-    .then(()=>TaskManager.GETALL())
-      .then(tasks =>{
+      .then(() => TaskManager.GETALL())
+      .then(tasks => {
         console.log(tasks)
         this.setState({
           tasks: tasks
@@ -142,18 +147,18 @@ class ApplicationViews extends Component {
           {...props} />
       }} />
       <Route path="/events/:eventId(\d+)/edit" render={props => {
-                    return <EventEditForm {...props}
-                    events={this.state.events}
-                    updateEvent={this.updateEvent} />
-                }} />
-     
+        return <EventEditForm {...props}
+          events={this.state.events}
+          updateEvent={this.updateEvent} />
+      }} />
+
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
           {...props}
           tasks={this.state.tasks}
           deleteTask={this.deleteTask}
-          friendships = {this.state.friendships}
+          friendships={this.state.friendships}
         />
 
       }} />
@@ -170,9 +175,14 @@ class ApplicationViews extends Component {
       />
       <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
-          friendships = {this.state.friendships}
+          friendships={this.state.friendships}
           articles={this.state.articles}
           deleteArticle={this.deleteArticle} />
+      }} />
+      <Route exact path="/friends" render={(props) => {
+        return <FriendsList {...props}
+          friendships={this.state.friendships}
+          users={this.state.users}/>
       }} />
       <Route
         exact path="/articles/:articleId(\d+)/edit" render={props => {
@@ -184,7 +194,7 @@ class ApplicationViews extends Component {
       <Route path="/articles/new" render={(props) => {
         return <NewsForm {...props}
           addArticle={this.addArticle}
-          />
+        />
       }} />
 
     </React.Fragment>
