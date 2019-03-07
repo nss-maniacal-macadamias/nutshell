@@ -129,6 +129,16 @@ class ApplicationViews extends Component {
       );
   }
 
+  deleteFriendship = id => {
+    return FriendShipManager.DELETE(id)
+      .then(() => FriendShipManager.GETALL())
+      .then(friendships =>
+        this.setState({
+          friendships: friendships
+        })
+      );
+  }
+
 
   render() {
     return <React.Fragment>
@@ -182,7 +192,8 @@ class ApplicationViews extends Component {
       <Route exact path="/friends" render={(props) => {
         return <FriendsList {...props}
           friendships={this.state.friendships}
-          users={this.state.users}/>
+          users={this.state.users}
+          deleteFriendship={this.deleteFriendship}/>
       }} />
       <Route
         exact path="/articles/:articleId(\d+)/edit" render={props => {
