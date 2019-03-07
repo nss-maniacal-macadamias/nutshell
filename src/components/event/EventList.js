@@ -10,7 +10,6 @@ export default class EventList extends Component {
         const evt = this.props.events
             .filter(event => (event.userId === parseInt(sessionStorage.getItem("credentials")) ||
                 friends.includes(event.userId)) && new Date(event.eventDate) >= new Date())
-        console.log("evt", evt)
         return (
             <React.Fragment>
                 <div className="center_class">

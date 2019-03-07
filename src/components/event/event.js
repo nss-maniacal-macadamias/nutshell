@@ -7,7 +7,7 @@ export default class Event extends Component {
         let addclass = this.props.event.userId === parseInt(sessionStorage.getItem("credentials"))
             ? "card my_card" : "card friends_card "
         addclass = new Date(this.props.event.eventDate) >= new Date() && this.props.index === 0 ? "card first_card": addclass
-        console.log(this.props.index, "o", addclass)
+
         return (
             <div key={this.props.event.id} className={addclass} >
                 <div className="card-header">
