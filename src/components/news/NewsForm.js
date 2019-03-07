@@ -20,14 +20,11 @@ export default class NewsForm extends Component {
 
   constructNewArticle = evt => {
     evt.preventDefault();
-    if (this.state.news === ""|| this.state.newsSynopsis === "" || this.state.newsURL === "") {
-      window.alert("Please fill out all fields");
-    } else {
       const article = {
         news: this.state.news,
         newsSynopsis: this.state.newsSynopsis,
         newsURL: this.state.newsURL,
-        date: Date().split(" ").splice(0, 5).join(" "),
+        date: Date.now(),
         userId: Number(sessionStorage.getItem("credentials"))
       };
 
@@ -35,7 +32,7 @@ export default class NewsForm extends Component {
       this.props
         .addArticle(article)
         .then(() => this.props.history.push("/articles"));
-    }
+
   };
 
   render() {
@@ -71,7 +68,7 @@ export default class NewsForm extends Component {
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="articleURL"
+              id="newsURL"
               placeholder="articleURL"
             />
           </div>

@@ -23,6 +23,7 @@ class ApplicationViews extends Component {
     users: []
   }
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
+
   updateArticle = (editedArticleObject) => {
     return ArticleManager.PUT(editedArticleObject)
       .then(() => ArticleManager.GETALL())
@@ -40,6 +41,13 @@ class ApplicationViews extends Component {
           articles: articles
         })
       );
+
+    deleteArticle = (id) => {
+      return ArticleManager.DELETE(id)
+          .then(() => ArticleManager.GETALL())
+          .then(articles => this.setState({ articles: articles }))
+
+  }
 
 
   componentDidMount() {
@@ -123,8 +131,9 @@ class ApplicationViews extends Component {
       />
       <Route exact path="/articles" render={(props) => {
         return <NewsList {...props}
-          // addAnimal={this.addAnimal}
-          articles={this.state.articles} />
+          friendships = {this.state.friendships}
+          articles={this.state.articles}
+          deleteArticle={this.deleteArticle} />
       }} />
       <Route
         exact path="/articles/:articleId(\d+)/edit" render={props => {
