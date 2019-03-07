@@ -28,7 +28,8 @@ export default class EventForm extends Component {
         eventName: this.state.eventName,
         eventLocation: this.state.eventLocation,
         eventDate: this.state.eventDate,
-        userId: parseInt(sessionStorage.getItem("credentials"))
+        userId: parseInt(sessionStorage.getItem("credentials")),
+        id:this.state.id
       };
       this.props.addNewEvent(event)
         .then(() => this.props.history.push("/events"));

@@ -8,13 +8,13 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
-import EventList from "./events/evenList";
+import EventList from "./event/EventList";
 import NewsList from "./news/NewsList";
-import EventForm from "./events/eventForm";
+import EventForm from "./event/eventForm";
 import ChatList from "./chat/ChatList"
-import NewsList from "./news/NewsList";
 import UserManager from "../modules/resourceManagers/UserManager";
 import NewsEditForm from "./news/NewsEditForm"
+import EventEditForm from "./event/EventEdit";
 class ApplicationViews extends Component {
   state = {
     tasks: [],
@@ -24,6 +24,7 @@ class ApplicationViews extends Component {
     friendships: [],
     users: []
   }
+
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
   updateArticle = (editedArticleObject) => {
     return ArticleManager.PUT(editedArticleObject)
@@ -67,6 +68,16 @@ class ApplicationViews extends Component {
       .then(() => EventManager.GETALL())
       .then(events => this.setState({ events: events }))
 
+  updateEvent = (eventObj) => {
+    console.log(eventObj)
+    return EventManager.PUT(eventObj)
+            .then(() => EventManager.GETALL())
+            .then(events => {
+                this.setState({
+                    events: events
+                })
+            });
+    };
 
   addTask = task => {
     return TaskManager.POST(task)
@@ -105,6 +116,7 @@ class ApplicationViews extends Component {
         return <EventList events={this.state.events}
           friends={this.state.friendships}
           DeleteEvent={this.DeleteEvent}
+          updateAnimal={this.updateAnimal}
           {...props} />
       }} />
       <Route exact path="/events/new" render={(props) => {
@@ -113,6 +125,11 @@ class ApplicationViews extends Component {
           friends={this.state.friendships}
           {...props} />
       }} />
+      <Route path="/events/:eventId(\d+)/edit" render={props => {
+                    return <EventEditForm {...props}
+                    events={this.state.events}
+                    updateEvent={this.updateEvent} />
+                }} />
       <Route path="/articles" render={(props) => {
         return <NewsList {...props}
           // addAnimal={this.addAnimal}

@@ -19,7 +19,7 @@ export default class Event extends Component {
                             type="button"
                             className="btn btn-success"
                             onClick={() => {
-                                this.props.history.push(`/animals/${this.props.animal.id}/edit`);
+                                this.props.history.push(`/events/${this.props.event.id}/edit`);
                             }}
                         > Edit </button>
                         <button className="btn btn-outline-danger"
