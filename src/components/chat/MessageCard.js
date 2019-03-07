@@ -23,7 +23,9 @@ class MessageCard extends Component {
                                 </div>
                                 <button
                                     type="submit"
-                                    onClick={this.constructNewMessage}
+                                    onClick={this.props.changeClass}
+                                    id={`Edit--${message.id}`}
+                                    key={`Edit--${message.id}`}
                                     className="MessageEditButton" >
                                     Edit
                                 </button>
