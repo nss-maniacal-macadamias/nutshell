@@ -13,8 +13,8 @@ import NewsList from "./news/NewsList";
 import EventForm from "./event/eventForm";
 import ChatList from "./chat/ChatList"
 import UserManager from "../modules/resourceManagers/UserManager";
-import NewsEditForm from "./news/NewsEditForm"
 import EventEditForm from "./event/EventEdit";
+import NewsEditForm from "./news/NewsEditForm"
 import NewsForm from "./news/NewsForm"
 class ApplicationViews extends Component {
   state = {
@@ -150,24 +150,18 @@ class ApplicationViews extends Component {
           {...props} />
       }} />
       <Route path="/events/:eventId(\d+)/edit" render={props => {
-        return <EventEditForm {...props}
-          events={this.state.events}
-          updateEvent={this.updateEvent} />
-      }} />
-      <Route path="/articles" render={(props) => {
-        return <NewsList {...props}
-          // addAnimal={this.addAnimal}
-          articles={this.state.articles} />
-      }} />
-      {/* <Route path="/events" render ={() => {
-        <EventList />
-      }} /> */}
+                    return <EventEditForm {...props}
+                    events={this.state.events}
+                    updateEvent={this.updateEvent} />
+                }} />
+
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
           {...props}
           tasks={this.state.tasks}
           deleteTask={this.deleteTask}
+          friendships = {this.state.friendships}
         />
 
       }} />
