@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import TaskManager from "../../modules/resourceManagers/TaskManager";
 
 
+
+
 export default class TaskEditForm extends Component {
+
+    
     // Set initial state
     state = {
         
@@ -32,7 +36,7 @@ export default class TaskEditForm extends Component {
             completionDate: this.state.completionDate,
             // Make sure the employeeId is saved to the database as a number since it is a foreign key.
             userId: Number(sessionStorage.getItem("credentials")),
-            completionStatus: true
+            completionStatus: Boolean(this.state.completionStatus)
 
 
         };
@@ -82,13 +86,15 @@ export default class TaskEditForm extends Component {
                             value={this.state.completionDate}
                         />
                     </div>
-                    {/* <div className="form-group">
+                    <div className="form-group">
                         <label htmlFor="taskName">Completed</label>
                         <input type="checkbox" 
                         name="completed" 
-                        value=""
+                        value="true"
+                        onChange={this.handleFieldChange}
+                        
                         id="completionStatus"/>
-                    </div> */}
+                    </div>
                     <button
                         type="submit"
                         onClick={this.editTask}
