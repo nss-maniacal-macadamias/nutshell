@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MessageCard from "./MessageCard"
+import ChatForm from "./ChatForm"
 import "./ChatList.css"
 
 class ChatList extends Component {
@@ -9,12 +10,17 @@ class ChatList extends Component {
                 <div className="ChatRoomHeader">
                     <h3 key={`candyList`}>Nutshell Chat Room:</h3>
                 </div>
+                <div className="PostedMessages">
+                    {
+                        this.props.messages.map(mObj =>
+                            <MessageCard key={`SingleMessage--${mObj.id}`}
+                                message={mObj}
+                                users={this.props.users} />
+                        )
+                    }
+                </div>
                 {
-                    this.props.messages.map(mObj =>
-                        <MessageCard key={`SingleCandy--${mObj.id}`}
-                            message={mObj}
-                            users ={this.props.users} />
-                    )
+                    <ChatForm key={"ChatForm"} />
                 }
             </section>
         )
