@@ -10,7 +10,6 @@ export default class EventForm extends Component {
   };
 
 
-  // Update state whenever an input field is edited
   handleFieldChange = evt => {
     const stateToChange = {};
     stateToChange[evt.target.id] = evt.target.value;

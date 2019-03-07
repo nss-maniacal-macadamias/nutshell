@@ -16,24 +16,26 @@ export default class EventList extends Component {
         console.log("evt", evt)
         return (
             <React.Fragment>
-                <div>Events</div>
-                <button type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                        this.props.history.push("/events/new")
-                    }
-                    }>
-                    Add New Task
+                <div className = "center_class">
+                    <button type="button"
+                        className="btn btn-success"
+                        onClick={() => {
+                            this.props.history.push("/events/new")
+                        }
+                        }>
+                        Add New Events
                     </button>
+                </div>
                 <div className="flex_container">
                     {this.props.events
                         .filter(event => event.userId === parseInt(sessionStorage.getItem("credentials")) ||
-                            friends.find(friend => friend.friendId === event.userId))
+                            friends.includes(event.userId))
+                        .sort((a, b) => b.eventDate - a.eventDate)
                         .map(evt =>
                             <Event key={evt.id} event={evt}
-                            DeleteEvent={this.props.DeleteEvent}
-                            {...this.props} />
-                            )}
+                                DeleteEvent={this.props.DeleteEvent}
+                                {...this.props} />
+                        )}
                 </div>
             </React.Fragment>
         )
