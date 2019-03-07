@@ -22,7 +22,12 @@ export default class TaskForm extends Component {
           Local method for validation, creating animal object, and
           invoking the function reference passed from parent component
        */
+
+       
     constructNewTask = evt => {
+        if (this.state.taskName === "" || this.state.completionDate === "") {
+            window.alert("Please fill out all fields!");
+        } else { 
         evt.preventDefault();
         const task = {
             taskName: this.state.taskName,
@@ -40,6 +45,7 @@ export default class TaskForm extends Component {
             .then(() => this.props.history.push("/tasks"));
 
     };
+}
 
     render() {
         return (

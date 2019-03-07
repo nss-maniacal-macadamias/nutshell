@@ -1,0 +1,9 @@
+.task {
+    
+    border: 1px solid  seagreen;
+    width: 30%;
+}
+
+.tasks > .task {
+    margin: 5px
+}
