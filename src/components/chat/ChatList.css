@@ -1,13 +1,14 @@
 .ChatRoom {
-    /* border: 2px solid black; */
+    /* border: 10px solid black; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 92%;
+    overflow: hidden;
     position: fixed;
-    bottom: 0;
+    /* bottom: 0;  */
 }
 
 .ChatRoomHeader {
@@ -26,7 +27,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    height: 70%;
+    height: 65%;
     width: 95%;
 
 }
@@ -36,7 +37,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 80px;
+    min-height: 100px;
     margin-top: 10px;
 }
 
@@ -48,6 +49,7 @@
     flex-direction: column;
     width: 75%;
     height: 100%;
+    min-height: auto;
     box-shadow: 3px 3px 0 0 gray
 }
 
@@ -83,10 +85,29 @@
     font-style: italic;
 }
 
-.MessageTextContent {
+.MessageAndEditButton {
+    /* border: 1px solid pink; */
     margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.MessageTextContent {
+    /* border: 1px solid gray; */
+    width: 80%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.MessageEditButton{
+    background-color: rgb(94, 194, 228);
+    color: white;
+    font-weight: bolder;
+    width: 12%;
+    height: 100%;
+    max-height: 30px;
 }
 
 .NewMessageForm {
@@ -95,7 +116,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height:20%;
+    height:25%;
 }
 
 .MessageInput {
