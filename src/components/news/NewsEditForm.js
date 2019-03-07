@@ -22,7 +22,7 @@ export default class NewsEditForm extends Component {
     updateExistingArticle = evt => {
       evt.preventDefault()
 
-      if (this.state.newsURL=== "" || this.state.news === "" || this.state.newsSynopsis === "") {
+      if (this.state.newsURL === null && this.state.news === null && this.state.newsSynopsis === null) {
         window.alert("Please fill out all fields!");
       } else {
         const editedArticle = {
