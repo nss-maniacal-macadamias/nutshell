@@ -23,7 +23,7 @@ export default class EventList extends Component {
                         this.props.history.push("/events/new")
                     }
                     }>
-                    Add New Task
+                    Add New Event
                     </button>
                 <div className="flex_container">
                     {this.props.events

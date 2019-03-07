@@ -2,6 +2,9 @@
     
     border: 1px solid  seagreen;
     width: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .tasks > .task {
