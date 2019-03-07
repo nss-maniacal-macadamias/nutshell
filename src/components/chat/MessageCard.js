@@ -17,14 +17,28 @@ class MessageCard extends Component {
                                 <div className="MessageSender">You</div>
                                 <div className="MessageSentOn"> posted on {messageDate} at {messageTime}</div>
                             </div>
-                            <div className="MessageTextContent">{message.messageText}</div>
+                            <div className="MessageAndEditButton">
+                                <div className="MessageTextContent">
+                                    {message.messageText}
+                                </div>
+                                <button
+                                    type="submit"
+                                    onClick={this.props.changeClass}
+                                    id={`Edit--${message.id}`}
+                                    key={`Edit--${message.id}`}
+                                    className="MessageEditButton" >
+                                    Edit
+                                </button>
+                            </div>
                         </div>
                         : <div className="OthersMessage">
                             <div className="MessageCardHeader">
                                 <div className="MessageSender">{username}</div>
                                 <div className="MessageSentOn"> posted on {messageDate} at {messageTime}</div>
                             </div>
-                            <div className="MessageTextContent">{message.messageText}</div>
+                            <div className="MessageAndEditButton">
+                                <div className="MessageTextContent">{message.messageText}</div>
+                            </div>
                         </div>
                 }
             </div>

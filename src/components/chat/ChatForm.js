@@ -51,7 +51,7 @@ export default class ChatForm extends Component {
                         onClick={this.constructNewMessage}
                         className="SendButton" >
                         SEND IT
-          </button>
+                    </button>
                 </form>
             </React.Fragment>
         );

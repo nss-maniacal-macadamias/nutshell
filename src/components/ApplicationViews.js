@@ -132,6 +132,11 @@ class ApplicationViews extends Component {
       .then(() => MessageManager.GETALL()).then(messages => this.setState({ messages: messages }))
   }
 
+  editMessage = (obj) => {
+    return MessageManager.PUT(obj)
+    .then(()=> MessageManager.GETALL()).then(messages => this.setState({messages: messages}))
+  }
+
 
   render() {
     return <React.Fragment>
@@ -199,7 +204,8 @@ class ApplicationViews extends Component {
           {...props}
           messages={this.state.messages}
           users={this.state.users}
-          addMessage={this.addMessage} />
+          addMessage={this.addMessage}
+          editMessage={this.editMessage}/>
       }} />
 
     </React.Fragment>
