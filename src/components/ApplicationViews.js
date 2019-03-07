@@ -13,9 +13,7 @@ import NewsList from "./news/NewsList";
 import EventForm from "./event/eventForm";
 import ChatList from "./chat/ChatList"
 import UserManager from "../modules/resourceManagers/UserManager";
-import NewsEditForm from "./news/NewsEditForm"
 import EventEditForm from "./event/EventEdit";
-import NewsList from "./news/NewsList";
 import NewsEditForm from "./news/NewsEditForm"
 import NewsForm from "./news/NewsForm"
 class ApplicationViews extends Component {
@@ -148,14 +146,7 @@ class ApplicationViews extends Component {
                     events={this.state.events}
                     updateEvent={this.updateEvent} />
                 }} />
-      <Route path="/articles" render={(props) => {
-        return <NewsList {...props}
-          // addAnimal={this.addAnimal}
-          articles={this.state.articles} />
-      }} />
-      {/* <Route path="/events" render ={() => {
-        <EventList />
-      }} /> */}
+     
       <Route exact path="/tasks" render={(props) => {
 
         return <TaskList
