@@ -152,6 +152,7 @@ class ApplicationViews extends Component {
           {...props}
           tasks={this.state.tasks}
           deleteTask={this.deleteTask}
+          friendships = {this.state.friendships}
         />
 
       }} />

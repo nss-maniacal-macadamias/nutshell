@@ -17,13 +17,13 @@ export default class EventList extends Component {
         return (
             <React.Fragment>
                 <div className = "center_class">
-                    <button type="button"
-                        className="btn btn-success"
-                        onClick={() => {
-                            this.props.history.push("/events/new")
-                        }
-                        }>
-                        Add New Events
+                <button type="button"
+                    className="btn btn-success"
+                    onClick={() => {
+                        this.props.history.push("/events/new")
+                    }
+                    }>
+                    Add New Event
                     </button>
                 </div>
                 <div className="flex_container">
