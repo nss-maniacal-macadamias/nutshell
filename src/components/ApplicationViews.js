@@ -136,7 +136,10 @@ class ApplicationViews extends Component {
         this.setState({
           friendships: friendships
         })
-      );}
+      );
+    }
+
+
   addMessage = (obj) => {
     return MessageManager.POST(obj)
       .then(() => MessageManager.GETALL()).then(messages => this.setState({ messages: messages }))
@@ -146,7 +149,15 @@ class ApplicationViews extends Component {
     return MessageManager.PUT(obj)
     .then(()=> MessageManager.GETALL()).then(messages => this.setState({messages: messages}))
   }
-
+  addFriend = obj => {
+    return FriendShipManager.POST(obj)
+      .then(() => FriendShipManager.GETALL())
+      .then(friendships =>
+        this.setState({
+          friendships: friendships
+        })
+      );
+  }
 
   render() {
     return (
@@ -202,7 +213,8 @@ class ApplicationViews extends Component {
         return <FriendsList {...props}
           friendships={this.state.friendships}
           users={this.state.users}
-          deleteFriendship={this.deleteFriendship}/>
+          deleteFriendship={this.deleteFriendship}
+          addFriend={this.addFriend}/>
       }} />
       <Route
         exact path="/articles/:articleId(\d+)/edit" render={props => {
