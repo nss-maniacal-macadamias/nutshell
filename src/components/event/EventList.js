@@ -20,9 +20,6 @@ export default class EventList extends Component {
                 friends.includes(event.userId)) && new Date(event.eventDate).setHours(0,0,0,0) >= TodaysDate)
 
         let TodaysDate = new Date();
-        // TodaysDate.setHours(18)
-        // TodaysDate.setMinutes(0)
-        // TodaysDate.setSeconds(0)
         TodaysDate = TodaysDate.setHours(0,0,0,0)
         console.log(TodaysDate)
 
@@ -41,7 +38,7 @@ export default class EventList extends Component {
                 <div className= "txt">Up comming events </div>
                 <div className="flex_container">
                     {this.props.events
-                        .filter(event => (event.userId === parseInt(sessionStorage.getItem("credentials")) ||
+                        .filter(event =>(event.userId === parseInt(sessionStorage.getItem("credentials")) ||
                             friends.includes(event.userId)) && this.resetTime(event.eventDate) >= TodaysDate)
                         .sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate))
                         .map((evt, index) =>
