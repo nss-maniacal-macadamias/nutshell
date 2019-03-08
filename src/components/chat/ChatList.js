@@ -70,7 +70,7 @@ class ChatList extends Component {
                         <ChatForm key={"ChatForm"}
                             addMessage={this.props.addMessage} />
                     }
-                    <div Key={"EditForm"} className={"hidden"}>
+                    <div key={"EditForm"} className={"hidden"}>
                         <form className="EditMessageForm">
                             <div className="EditMessageHeader">Update Your Message</div>
                             <div className="MessageInput">
