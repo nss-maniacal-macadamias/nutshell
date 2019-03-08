@@ -12,7 +12,9 @@ export default class EventList extends Component {
     render() {
         const friends = this.props.friends
             .filter(friend => friend.userId === parseInt(sessionStorage.getItem("credentials")))
-            .map(frnd => frnd.friendId)
+            .map(frnd => frnd.friend)
+        console.log("friends", friends)
+        console.log(this.props.events)
         const evt = this.props.events
             .filter(event => (event.userId === parseInt(sessionStorage.getItem("credentials")) ||
                 friends.includes(event.userId)) && new Date(event.eventDate).setHours(0,0,0,0) >= TodaysDate)
