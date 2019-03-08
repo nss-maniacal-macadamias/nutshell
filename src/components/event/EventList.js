@@ -35,7 +35,7 @@ export default class EventList extends Component {
                         Add New Event
                     </button>
                 </div>
-                <div className= "txt">Upcomming events </div>
+                <div className= "txt">Upcoming events </div>
                 <div className="flex_container">
                     {this.props.events
                         .filter(event =>(event.userId === parseInt(sessionStorage.getItem("credentials")) ||

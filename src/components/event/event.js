@@ -4,13 +4,15 @@ import "./events.css"
 export default class Event extends Component {
     resetTime = (dt) => {
         let newdt = new Date(dt)
-        newdt =newdt.setHours(0,0,0,0)
+        newdt = newdt.setHours(0, 0, 0, 0)
         return newdt
     }
     render() {
         let addclass = this.props.event.userId === parseInt(sessionStorage.getItem("credentials"))
             ? "card my_card" : "card friends_card "
-        addclass = new Date(this.props.event.eventDate) >= new Date() && this.props.index === 0 ? "card first_card": addclass
+        let TodaysDate = new Date();
+        TodaysDate = TodaysDate.setHours(0, 0, 0, 0)
+        addclass = this.resetTime(this.props.event.eventDate) >= TodaysDate && this.props.index === 0 ? "card first_card" : addclass
         return (
             <div key={this.props.event.id} className={addclass} >
                 <div className="card-header">
