@@ -3,13 +3,27 @@ import Event from "./event";
 
 import "./events.css"
 export default class EventList extends Component {
+    resetTime = (dt) => {
+        let newdt = new Date(dt)
+        newdt =newdt.setHours(0,0,0,0)
+        return newdt
+    }
+
     render() {
         const friends = this.props.friends
             .filter(friend => friend.userId === parseInt(sessionStorage.getItem("credentials")))
             .map(frnd => frnd.friendId)
         const evt = this.props.events
             .filter(event => (event.userId === parseInt(sessionStorage.getItem("credentials")) ||
-                friends.includes(event.userId)) && new Date(event.eventDate) >= new Date())
+                friends.includes(event.userId)) && new Date(event.eventDate).setHours(0,0,0,0) >= TodaysDate)
+
+        let TodaysDate = new Date();
+        // TodaysDate.setHours(18)
+        // TodaysDate.setMinutes(0)
+        // TodaysDate.setSeconds(0)
+        TodaysDate = TodaysDate.setHours(0,0,0,0)
+        console.log(TodaysDate)
+
         return (
             <React.Fragment>
                 <div className="center_class">
@@ -26,7 +40,7 @@ export default class EventList extends Component {
                 <div className="flex_container">
                     {this.props.events
                         .filter(event => (event.userId === parseInt(sessionStorage.getItem("credentials")) ||
-                            friends.includes(event.userId)) && new Date(event.eventDate) >= new Date())
+                            friends.includes(event.userId)) && this.resetTime(event.eventDate) >= TodaysDate)
                         .sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate))
                         .map((evt, index) =>
                             <Event key={evt.id} event={evt}
@@ -39,7 +53,7 @@ export default class EventList extends Component {
                 <div className="flex_container">
                     {this.props.events
                         .filter(event => (event.userId === parseInt(sessionStorage.getItem("credentials")) ||
-                            friends.includes(event.userId)) && new Date(event.eventDate) < new Date())
+                            friends.includes(event.userId)) && this.resetTime(event.eventDate) < TodaysDate)
                         .sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate))
                         .map((evt, index) =>
                             <Event key={evt.id} event={evt}
