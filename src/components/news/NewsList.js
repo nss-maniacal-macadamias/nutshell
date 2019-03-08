@@ -6,7 +6,7 @@ import "./news.css"
 export default class NewsList extends Component {
     render() {
         const friends = this.props.friendships.filter(friendship => friendship.userId === Number(sessionStorage.getItem("credentials")))
-        .map(friendship => friendship.friendId)
+        .map(friendship => friendship.friend)
         return (
             <section className="news">
                 {this.props.articles.filter(article => article.userId === Number(sessionStorage.getItem("credentials")) ||

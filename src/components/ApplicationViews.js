@@ -8,6 +8,7 @@ import EventManager from "../modules/resourceManagers/EventManager"
 import ArticleManager from "../modules/resourceManagers/ArticleManager"
 import MessageManager from "../modules/resourceManagers/MessageManager"
 import FriendShipManager from "../modules/resourceManagers/FriendshipManager"
+import FriendsList from "./friends/FriendsList"
 import EventList from "./event/EventList";
 import NewsList from "./news/NewsList";
 import EventForm from "./event/eventForm";
@@ -70,7 +71,8 @@ class ApplicationViews extends Component {
       newState.friendships = friendships
     })).then(() => UserManager.getAll().then(users => {
       newState.users = users
-    })).then(() => {
+    }))
+    .then(() => {
       this.setState(newState)
     })
   }
@@ -127,6 +129,14 @@ class ApplicationViews extends Component {
       );
   }
 
+  deleteFriendship = id => {
+    return FriendShipManager.DELETE(id)
+      .then(() => FriendShipManager.GETALL())
+      .then(friendships =>
+        this.setState({
+          friendships: friendships
+        })
+      );}
   addMessage = (obj) => {
     return MessageManager.POST(obj)
       .then(() => MessageManager.GETALL()).then(messages => this.setState({ messages: messages }))
@@ -139,7 +149,8 @@ class ApplicationViews extends Component {
 
 
   render() {
-    return <React.Fragment>
+    return (
+    <React.Fragment>
 
       <Route exact path="/events" render={(props) => {
         return <EventList events={this.state.events}
@@ -166,7 +177,7 @@ class ApplicationViews extends Component {
           {...props}
           tasks={this.state.tasks}
           deleteTask={this.deleteTask}
-          friendships = {this.state.friendships}
+          friendships={this.state.friendships}
         />
 
       }} />
@@ -186,6 +197,12 @@ class ApplicationViews extends Component {
           friendships={this.state.friendships}
           articles={this.state.articles}
           deleteArticle={this.deleteArticle} />
+      }} />
+      <Route exact path="/friends" render={(props) => {
+        return <FriendsList {...props}
+          friendships={this.state.friendships}
+          users={this.state.users}
+          deleteFriendship={this.deleteFriendship}/>
       }} />
       <Route
         exact path="/articles/:articleId(\d+)/edit" render={props => {
@@ -209,6 +226,7 @@ class ApplicationViews extends Component {
       }} />
 
     </React.Fragment>
+    )
   }
 }
 
