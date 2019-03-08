@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import "./news.css"
 
 
@@ -35,7 +35,7 @@ export default class NewsList extends Component {
                                     <br></br>
                                 </h5>
                                 <div> Synopsis: {article.newsSynopsis}</div>
-                                <div> URL: {article.newsURL}</div>
+                                <div> URL:<a target="_blank" href={article.newsURL}> {article.newsURL}</a></div>
                             </div>
                             <div className="p-3 d-flex justify-content-center">
                             { (article.userId === Number(sessionStorage.getItem("credentials"))) ? <div> 
