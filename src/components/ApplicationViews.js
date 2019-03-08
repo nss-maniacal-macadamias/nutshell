@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route } from "react-router-dom"
 import TaskManager from "../modules/resourceManagers/TaskManager"
 import TaskList from './task/TaskList'
 import TaskForm from './task/TaskForm';
@@ -136,12 +136,21 @@ class ApplicationViews extends Component {
         this.setState({
           friendships: friendships
         })
-      );
+      );}
+  addMessage = (obj) => {
+    return MessageManager.POST(obj)
+      .then(() => MessageManager.GETALL()).then(messages => this.setState({ messages: messages }))
+  }
+
+  editMessage = (obj) => {
+    return MessageManager.PUT(obj)
+    .then(()=> MessageManager.GETALL()).then(messages => this.setState({messages: messages}))
   }
 
 
   render() {
-    return <React.Fragment>
+    return (
+    <React.Fragment>
 
       <Route exact path="/events" render={(props) => {
         return <EventList events={this.state.events}
@@ -157,13 +166,13 @@ class ApplicationViews extends Component {
           {...props} />
       }} />
       <Route path="/events/:eventId(\d+)/edit" render={props => {
-        return <EventEditForm {...props}
-          events={this.state.events}
-          updateEvent={this.updateEvent} />
-      }} />
+                    return <EventEditForm {...props}
+                    events={this.state.events}
+                    updateEvent={this.updateEvent} />
+                }} />
+
 
       <Route exact path="/tasks" render={(props) => {
-
         return <TaskList
           {...props}
           tasks={this.state.tasks}
@@ -207,8 +216,17 @@ class ApplicationViews extends Component {
           addArticle={this.addArticle}
         />
       }} />
+      <Route path="/chats" render={(props) => {
+        return <ChatList
+          {...props}
+          messages={this.state.messages}
+          users={this.state.users}
+          addMessage={this.addMessage}
+          editMessage={this.editMessage}/>
+      }} />
 
     </React.Fragment>
+    )
   }
 }
 
