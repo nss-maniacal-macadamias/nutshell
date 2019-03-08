@@ -1,10 +1,18 @@
 .news {
     display: flex;
     justify-content: space-evenly;
+    flex-direction: column;
 }
 
 .card {
-    width: 10rem;
+    width: 17rem;
+    margin: 10px; 
+
+}
+.widthControl{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-title {
@@ -17,4 +25,18 @@
 .card-link {
     margin: 12px 0 0 0;
     font-size: 0.7em;
+}
+
+.btn {
+    height: 30px;
+}
+
+.green {
+    background-color: lightgreen; 
+}
+
+.articlesContainer {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
 }
