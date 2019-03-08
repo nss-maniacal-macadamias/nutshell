@@ -23,7 +23,7 @@ export default class NewsForm extends Component {
       const article = {
         news: this.state.news,
         newsSynopsis: this.state.newsSynopsis,
-        newsURL: this.state.newsURL,
+        newsURL:"http://"+this.state.newsURL,
         date: Date.now(),
         userId: Number(sessionStorage.getItem("credentials"))
       };
